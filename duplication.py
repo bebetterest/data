@@ -37,7 +37,7 @@ def main_proc(
     with Pipeline("simple") as pipeline:
         loaded_data = LoadDataFromDicts(
             data=warped_data,
-            batch_size=1024,
+            batch_size=128,
         )
 
         minhash_dedup = MinHashDedup(
@@ -62,7 +62,9 @@ def main_proc(
 
 if __name__ == "__main__":
     # metric = []
-    # for threshold in [0.98, 0.95]:
+    # for idx in range(80, 98+1, 2)[::-1]:
+    #     threshold = idx / 100
+    #     print(f"threshold: {threshold}")
     #     unwarped_data, before_num, after_num = main_proc(
     #         load_json_path="all_data.json",
     #         threshold=threshold,
@@ -81,14 +83,7 @@ if __name__ == "__main__":
     #             "delta_num": before_num - after_num,
     #         })
 
-    # fig = plt.figure()
-    # plt.plot([item["threshold"] for item in metric], [item["delta_num"] for item in metric])
-    # plt.xlabel("threshold")
-    # plt.ylabel("delta_num")
-    # plt.savefig("delta_num_vs_threshold.png")
-    # plt.show()
-
-    threshold = 0.8
+    threshold = 0.93
     unwarped_data, before_num, after_num = main_proc(threshold=threshold)
     print(f"threshold: {threshold}, before_num: {before_num}, after_num: {after_num}")
     with open(f"all_data_after_minhash.json", "w") as f:

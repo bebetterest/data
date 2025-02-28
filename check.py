@@ -28,12 +28,19 @@ def show_source_distribution(data):
 if __name__ == "__main__":
     with open("all_data_after_minhash.json") as fp:
         data = json.load(fp)
-        print("Number of unique data:", len(data))
+        print("Number of data:", len(data))
+        empty_data = [_ for _ in data if len( _[0]["value"].strip())==0 or len(_[1]["value"].strip())==0]
+        data = [_ for _ in data if len( _[0]["value"].strip())>0 and len(_[1]["value"].strip())>0]
+        print("Number of data after removing empty values:", len(data))
+        print(empty_data)
         for idx, item in enumerate(data[::-1]):
             print(idx)
             print(json.dumps(item, indent=2))
             q = input("Press q to quit, anything else to continue: ")
             if q == "q":
                 break
-        
+
+        with open("all_data_after_minhash_f.json", "w") as fp:
+            json.dump(data, fp)
+
         show_source_distribution(data)

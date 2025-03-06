@@ -1,0 +1,6 @@
+{"threshold": 0.98, "before_num": 877300, "after_num": 853700, "delta_num": 23600}
+{"threshold": 0.88, "before_num": 877300, "after_num": 758796, "delta_num": 118504}
+{"threshold": 0.78, "before_num": 877300, "after_num": 605257, "delta_num": 272043}
+{"threshold": 0.68, "before_num": 877300, "after_num": 356054, "delta_num": 521246}
+{"threshold": 0.58, "before_num": 877300, "after_num": 158075, "delta_num": 719225}
+{"threshold": 0.48, "before_num": 877300, "after_num": 65112, "delta_num": 812188}

@@ -1,5 +1,6 @@
 tmp/*
 *.json
+*.jsonl
 *.png
 .DS_Store
 

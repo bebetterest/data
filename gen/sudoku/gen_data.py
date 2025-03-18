@@ -180,6 +180,7 @@ def sudoku_single_gen(
         num: int,
         version_str: str,
 ):
+    sudoku_slist: List[str] = []
     data: List[list] = []
 
     fail_num = 0
@@ -194,6 +195,14 @@ def sudoku_single_gen(
         if not flag:
             fail_num += 1
             continue
+
+        suduku_s = sudoku2str(blanked_sudoku)
+        if suduku_s in sudoku_slist:
+            fail_num += 1
+            print(f"hint cache")
+            continue
+        sudoku_slist.append(suduku_s)
+
         prompt = 'The Sudoku puzzle uses a 9*9 grid, which is divided into 9 non-overlapping 3*3 subgrids (each subgrid consists of 3 rows and 3 columns, totaling 9 cells). The game follows these rules: each row, each column, and each 3*3 subgrid must contain the numbers 1-9 without repetition. At the start of the game, some cells are pre-filled with numbers (which cannot be changed), while empty cells are represented by ".".'
         prompt += f"Here is a sudoku puzzle:\n{sudoku2str(blanked_sudoku)}"
         prompt += "\nYou need to deduce the solution based on the given numbers and output the complete 9*9 grid."
@@ -239,12 +248,11 @@ def sudoku_mix_gen(
 
 if __name__ == "__main__":
     config = [
-        {"blank_num": 5, "num": 100},
-        {"blank_num": 10, "num": 100},
-        {"blank_num": 15, "num": 100},
-        {"blank_num": 40, "num": 100},
+        {"blank_num": i, "num": 10}
+        for i in range(5, 50 + 1, 5)
     ]
     version_str = datetime.now().strftime("%Y%m%d%H%M%S")
     data = sudoku_mix_gen(config, version_str)
+    print(f"len(data): {len(data)}")
     with open(f"sudoku_data_v{version_str}.json", "w") as f:
         json.dump(data, f, indent=4)
